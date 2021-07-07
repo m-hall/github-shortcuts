@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "version": "1.0",
+    "name": "Github Board Quick Filters",
+    "host_permissions": [
+        "https://www.github.com/",
+        "https://github.com/"
+    ],
+    "content_scripts": [
+        {
+            "matches": ["*://*/*/projects/*"],
+            "js": ["src/projects.js"]
+        }
+    ]
+}
