@@ -1,19 +1,23 @@
 {
     "manifest_version": 3,
     "version": "1.0",
-    "name": "Github Board Quick Filters",
+    "name": "Github Shortcuts",
     "host_permissions": [
         "https://www.github.com/",
         "https://github.com/"
     ],
     "content_scripts": [
         {
-            "matches": ["*://*/*/projects/*"],
-            "js": ["src/projects.js"]
+            "matches": ["*://*/*"],
+            "js": [
+                "src/icons.js",
+                "src/storage.js",
+                "src/menu.js"
+            ]
         },
         {
-            "matches": ["*://*/*"],
-            "js": ["src/menu.js"]
+            "matches": ["*://*/*/projects/*"],
+            "js": ["src/projects.js"]
         }
     ]
 }

@@ -1,3 +1,9 @@
-# Github Board Quick Filters
+# Github Shortcuts
 
-Adds quick filters to the Github board pages.
+Adds quick access shortcuts to github menu and some pages.
+
+## Features
+
+* Shortcut menu items
+* Shortcut project page filters
+* Shortcut individual project filters

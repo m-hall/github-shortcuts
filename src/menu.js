@@ -2,45 +2,43 @@
 
 const nav = '.Header-item nav';
 const menuItemClassNames = 'js-selected-navigation-item Header-link mt-md-n3 mb-md-n3 py-2 py-md-3 mr-0 mr-md-3 border-top border-md-top-0 border-white-fade';
+const shortcuts = ShortcutsStorage.getShortcuts();
 
-const saveShortcutsKey = 'mh-links';
-
-
-function loadShortcuts() {
-    const raw = localStorage.getItem(saveShortcutsKey);
-
-    if (!raw) {
-        return [];
-    }
-
-    try {
-        return JSON.parse(raw);
-    } catch(e) { }
-
-    return [];
+function removeShortcut(shortcut) {
+    shortcuts.splice(shortcuts.indexOf(shortcut), 1);
+    ShortcutsStorage.setShortcuts(shortcuts);
 }
-function saveShortcuts(shortcuts = []) {
-    localStorage.setItem(saveShortcutsKey, JSON.stringify(shortcuts));
+function addShortcut(title, path) {
+    shortcuts.push({title, path});
+    ShortcutsStorage.setShortcuts(shortcuts);
 }
+function createShortcutLink(shortcut) {
+    const span = document.createElement('span');
+    span.style.position = 'relative';
+    span.innerHTML = `
+        <a href="${shortcut.path}" class="${menuItemClassNames}">${shortcut.title}</a>
+        <button class="btn-link Link--muted" style="position: absolute; right: 0; top: -8px;">${ShortcutsIcons.remove}</button>
+    `;
+    span.querySelector('button').addEventListener('click', function () {
+        removeShortcut(shortcut);
+        span.remove();
+    });
 
-function createShortcut(title, path) {
-    const link = document.createElement('a');
-    link.className = menuItemClassNames;
-    link.href = path;
-    link.innerText = title;
-
-    return link;
+    return span;
 }
 
 const navmenu = document.querySelector(nav);
 
 if (navmenu) {
-    const shortcuts = document.createElement('nav');
-    shortcuts.className = navmenu.className;
-    shortcuts.style.paddingLeft = '16px';
-    shortcuts.style.borderLeft = '1px solid';
-    shortcuts.append(createShortcut('Web TV board', '/orgs/plexinc/projects/81'));
+    const shortcutsNav = document.createElement('nav');
+    shortcutsNav.className = navmenu.className;
+    shortcutsNav.style.paddingLeft = '16px';
+    shortcutsNav.style.borderLeft = '1px solid';
+
+    shortcutsNav.append(
+        ...shortcuts.map(shortcut => createShortcutLink(shortcut))
+    );
     navmenu.after(
-        shortcuts
+        shortcutsNav
     );
 }
