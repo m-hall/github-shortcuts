@@ -9,15 +9,17 @@ function removeShortcut(shortcut) {
     ShortcutsStorage.setShortcuts(shortcuts);
 }
 function addShortcut(title, path) {
-    shortcuts.push({title, path});
+    const shortcut = {title, path}
+    shortcuts.push(shortcut);
     ShortcutsStorage.setShortcuts(shortcuts);
+    return shortcut;
 }
 function createShortcutLink(shortcut) {
     const span = document.createElement('span');
-    span.style.position = 'relative';
+    span.className = 'shortcut-link';
     span.innerHTML = `
         <a href="${shortcut.path}" class="${menuItemClassNames}">${shortcut.title}</a>
-        <button class="btn-link Link--muted" style="position: absolute; right: 0; top: -8px;">${ShortcutsIcons.remove}</button>
+        <button class="btn-link Link--muted">${ShortcutsIcons.remove}</button>
     `;
     span.querySelector('button').addEventListener('click', function () {
         removeShortcut(shortcut);
@@ -26,19 +28,43 @@ function createShortcutLink(shortcut) {
 
     return span;
 }
+function createShortcutsNav() {
+    const shortcutsNav = document.createElement('nav');
+    shortcutsNav.className = `shortcuts-menu ${navmenu.className}`;
+    shortcutsNav.append(
+        ...shortcuts.map(shortcut => createShortcutLink(shortcut))
+    );
+
+    return shortcutsNav;
+}
+function createAddButton() {
+    const button = document.createElement('button');
+    button.className = 'btn-link Link--muted';
+    button.innerHTML = ShortcutsIcons.add;
+    button.addEventListener('click', function () {
+        const title = prompt('Title', document.title);
+        if (!title) {
+            return;
+        }
+        const path = prompt(
+            `Path to "${title}"`,
+            window.location.href.replace(/^https?:\/\/[^\/]*github.com/, '')
+        );
+        if (!path) {
+            return;
+        }
+        const link = createShortcutLink(addShortcut(title, path));
+        button.before(link);
+    });
+
+    return button;
+}
 
 const navmenu = document.querySelector(nav);
 
 if (navmenu) {
-    const shortcutsNav = document.createElement('nav');
-    shortcutsNav.className = navmenu.className;
-    shortcutsNav.style.paddingLeft = '16px';
-    shortcutsNav.style.borderLeft = '1px solid';
-
-    shortcutsNav.append(
-        ...shortcuts.map(shortcut => createShortcutLink(shortcut))
-    );
     navmenu.after(
-        shortcutsNav
+        createShortcutsNav(),
+        createAddButton()
     );
 }

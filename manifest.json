@@ -13,6 +13,9 @@
                 "src/icons.js",
                 "src/storage.js",
                 "src/menu.js"
+            ],
+            "css": [
+                "src/styles.css"
             ]
         },
         {
