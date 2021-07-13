@@ -10,6 +10,10 @@
         {
             "matches": ["*://*/*/projects/*"],
             "js": ["src/projects.js"]
+        },
+        {
+            "matches": ["*://*/*"],
+            "js": ["src/menu.js"]
         }
     ]
 }
