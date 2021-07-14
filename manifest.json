@@ -8,7 +8,7 @@
     ],
     "content_scripts": [
         {
-            "matches": ["*://*/*"],
+            "matches": ["*://*.github.com/*"],
             "js": [
                 "src/icons.js",
                 "src/storage.js",
@@ -19,7 +19,7 @@
             ]
         },
         {
-            "matches": ["*://*/*/projects/*"],
+            "matches": ["*://*.github.com/*/projects/*"],
             "js": ["src/projects.js"]
         }
     ]
