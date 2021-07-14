@@ -6,30 +6,6 @@ const remove = 'x-16';
 const containerClassNames = 'pr-4';
 const linkClassNames = 'btn-link Link--primary project-header-link v-align-middle';
 
-const savedFiltersKey = 'mh-filters';
-
-
-function loadFiltersByKey(key) {
-    const raw = localStorage.getItem(key);
-
-    if (!raw) {
-        return [];
-    }
-
-    try {
-        return JSON.parse(raw);
-    } catch(e) { }
-
-    return [];
-}
-function saveFiltersByKey(key, filters = []) {
-    localStorage.setItem(key, JSON.stringify(filters));
-}
-const getGlobalSavedFilters = () => loadFiltersByKey(savedFiltersKey);
-const getProjectSavedFilters = () => loadFiltersByKey(`${savedFiltersKey}-${document.location.pathname}`);
-const saveGlobalFilters = (filters) => saveFiltersByKey(savedFiltersKey, filters);
-const saveProjectFilters = (filters) => saveFiltersByKey(`${savedFiltersKey}-${document.location.pathname}`, filters);
-
 function emit(element, eventType) {
     const evt = document.createEvent('HTMLEvents');
     evt.initEvent(eventType, true, true);
