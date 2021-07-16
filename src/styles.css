@@ -1,4 +1,8 @@
 
+[data-color-mode=dark][data-dark-theme=dark_dimmed],
+[data-color-mode=light][data-light-theme=dark_dimmed] {
+    --color-auto-gray-2: #373e47 !important;
+}
 .shortcuts-menu {
     padding-left: 16px;
     border-left: 1px solid;
