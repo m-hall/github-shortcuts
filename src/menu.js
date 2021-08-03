@@ -3,6 +3,12 @@
 const nav = '.Header-item nav';
 const menuItemClassNames = 'js-selected-navigation-item Header-link mt-md-n3 mb-md-n3 py-2 py-md-3 mr-0 mr-md-3 border-top border-md-top-0 border-white-fade';
 const shortcuts = ShortcutsStorage.getShortcuts();
+const menuDialog = new GHDialog();
+
+menuDialog.addTextInput('title', 'Title', 'Title of the menu item');
+menuDialog.addTextInput('path', 'Path', 'Path to Github page');
+menuDialog.addButton('cancel', 'Cancel', 'Escape');
+menuDialog.addButton('ok', 'Confirm', 'Enter');
 
 function removeShortcut(shortcut) {
     shortcuts.splice(shortcuts.indexOf(shortcut), 1);
@@ -41,19 +47,15 @@ function createAddButton() {
     const button = document.createElement('button');
     button.className = 'btn-link Link--muted';
     button.innerHTML = ShortcutsIcons.add;
-    button.addEventListener('click', function () {
-        const title = prompt('Title', document.title);
-        if (!title) {
+    button.addEventListener('click', async function () {
+        const output = await menuDialog.open({
+            title: document.title,
+            path: window.location.href.replace(/^https?:\/\/[^\/]*github.com/, '')
+        });
+        if (output.button !== 'ok') {
             return;
         }
-        const path = prompt(
-            `Path to "${title}"`,
-            window.location.href.replace(/^https?:\/\/[^\/]*github.com/, '')
-        );
-        if (!path) {
-            return;
-        }
-        const link = createShortcutLink(addShortcut(title, path));
+        const link = createShortcutLink(addShortcut(output.values.title, output.values.path));
         button.before(link);
     });
 

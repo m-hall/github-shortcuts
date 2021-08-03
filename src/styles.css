@@ -11,8 +11,57 @@
     position: relative;
 }
 .shortcut-link .btn-link {
-    visibility: hidden;position: absolute; right: 0; top: -8px;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: -8px;
 }
 .shortcut-link:hover .btn-link {
     visibility: visible;
+}
+
+.gh-shortcuts-dialog {
+    border: 1px solid var(--color-border-secondary);
+    background-color: var(--color-bg-canvas-inset);
+    color: var(--color-text-primary);
+    border-radius: 6px;
+    width: 350px;
+}
+
+.gh-shortcuts-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4) ;
+}
+.gh-shortcuts-dialog label {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.gh-shortcuts-dialog label span {
+    width: 50px;
+    text-align: right;
+}
+.gh-shortcuts-dialog label input {
+    flex: 1;
+    background-color: var(--color-input-bg);
+    border-width: 1px;
+    border: 1px solid var(--color-input-border);
+    border-radius: 6px;
+    color: var(--color-text-secondary);
+}
+.gh-shortcuts-dialog label input:focus,
+.gh-shortcuts-dialog label input:active {
+    border-color: var(--color-state-focus-border)!important;
+    box-shadow: var(--color-state-focus-shadow)!important;
+}
+.gh-shortcuts-dialog menu {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.gh-shortcuts-dialog button {
+    border-width: 1px;
+    border-radius: 6px;
 }

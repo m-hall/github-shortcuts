@@ -10,6 +10,7 @@
         {
             "matches": ["*://*.github.com/*"],
             "js": [
+                "src/gh-dialog.js",
                 "src/icons.js",
                 "src/storage.js",
                 "src/menu.js"
