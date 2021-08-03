@@ -32,7 +32,6 @@ class GHDialog {
         labelNode.innerText = label;
         container.append(labelNode);
         const input = document.createElement('input');
-        input.id = id;
         input.type = 'text';
         input.placeholder = placeholder;
         container.append(input);
@@ -46,7 +45,6 @@ class GHDialog {
         container.append(labelNode);
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.id = id;
         input.title = description;
         container.append(input);
         this.formInputs.append(container);
