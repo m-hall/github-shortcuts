@@ -7,17 +7,20 @@
     padding-left: 16px;
     border-left: 1px solid;
 }
-.shortcut-link {
+.ghsh-container {
     position: relative;
 }
-.shortcut-link .btn-link {
+.ghsh-remove {
     visibility: hidden;
     position: absolute;
     right: 0;
     top: -8px;
 }
-.shortcut-link:hover .btn-link {
+.ghsh-container:hover .ghsh-remove {
     visibility: visible;
+}
+.ghsh-filter--global {
+    font-weight: 600;
 }
 
 .gh-shortcuts-dialog {
@@ -48,6 +51,7 @@
     border: 1px solid var(--color-input-border);
     border-radius: 6px;
     color: var(--color-text-secondary);
+    outline: none;
 }
 .gh-shortcuts-dialog label input:focus,
 .gh-shortcuts-dialog label input:active {

@@ -5,6 +5,8 @@ const menuItemClassNames = 'js-selected-navigation-item Header-link mt-md-n3 mb-
 const shortcuts = ShortcutsStorage.getShortcuts();
 const menuDialog = new GHDialog();
 
+let shortcutsNav;
+
 menuDialog.addTextInput('title', 'Title', 'Title of the menu item');
 menuDialog.addTextInput('path', 'Path', 'Path to Github page');
 menuDialog.addButton('cancel', 'Cancel', 'Escape');
@@ -22,12 +24,12 @@ function addShortcut(title, path) {
 }
 function createShortcutLink(shortcut) {
     const span = document.createElement('span');
-    span.className = 'shortcut-link';
+    span.className = 'ghsh-container';
     span.innerHTML = `
         <a href="${shortcut.path}" class="${menuItemClassNames}">${shortcut.title}</a>
-        <button class="btn-link Link--muted">${ShortcutsIcons.remove}</button>
+        <button class="ghsh-remove btn-link Link--muted">${ShortcutsIcons.remove}</button>
     `;
-    span.querySelector('button').addEventListener('click', function () {
+    span.querySelector('.ghsh-remove').addEventListener('click', function () {
         removeShortcut(shortcut);
         span.remove();
     });
@@ -35,7 +37,7 @@ function createShortcutLink(shortcut) {
     return span;
 }
 function createShortcutsNav() {
-    const shortcutsNav = document.createElement('nav');
+    shortcutsNav = document.createElement('nav');
     shortcutsNav.className = `shortcuts-menu ${navmenu.className}`;
     shortcutsNav.append(
         ...shortcuts.map(shortcut => createShortcutLink(shortcut))
@@ -56,7 +58,7 @@ function createAddButton() {
             return;
         }
         const link = createShortcutLink(addShortcut(output.values.title, output.values.path));
-        button.before(link);
+        shortcutsNav.append(link);
     });
 
     return button;

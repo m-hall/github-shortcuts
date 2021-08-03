@@ -33,17 +33,25 @@ class GHDialog {
         container.append(labelNode);
         const input = document.createElement('input');
         input.id = id;
+        input.type = 'text';
         input.placeholder = placeholder;
         container.append(input);
         this.formInputs.append(container);
         this.inputs[id] = input;
     }
-    // removeTextInput(id) {
-    //     const input = this.inputs[id];
-    //     const parent = input.parent;
-    //     parent.remove();
-    //     delete this.inputs[id];
-    // }
+    addCheckbox(id, label, description) {
+        const container = document.createElement('label');
+        const labelNode = document.createElement('span');
+        labelNode.innerText = label;
+        container.append(labelNode);
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.title = description;
+        container.append(input);
+        this.formInputs.append(container);
+        this.inputs[id] = input;
+    }
     addButton(id, label, key) {
         const button = document.createElement('button');
         button.innerText = label;
@@ -54,13 +62,17 @@ class GHDialog {
         this.menu.append(button);
         this.buttons[id] = button;
     }
-    // removeButton(id) {
-    //     this.buttons[id].remove();
-    //     delete this.buttons[id];
-    // }
     getValues() {
         return Object.keys(this.inputs).reduce((values, key) => {
-            values[key] = this.inputs[key].value;
+            const input = this.inputs[key];
+            switch (input.type) {
+                case 'checkbox':
+                    values[key] = input.checked;
+                    break;
+                case 'text':
+                default:
+                    values[key] = input.value;
+            }
             return values;
         }, {});
     }
