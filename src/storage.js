@@ -8,7 +8,7 @@ const ShortcutsStorage = {
     load() {
         try {
             const raw = localStorage.getItem(this.key);
-            this.data = JSON.parse(raw);
+            this.data = JSON.parse(raw) || {};
         } catch(e) {
             this.data = {};
         }
