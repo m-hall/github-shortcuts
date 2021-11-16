@@ -2,6 +2,10 @@
     "manifest_version": 3,
     "version": "1.0",
     "name": "Github Shortcuts",
+    "icons": {
+        "64": "icon-64.png",
+        "128": "icon-128.png"
+    },
     "host_permissions": [
         "https://www.github.com/",
         "https://github.com/"
