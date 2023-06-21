@@ -12,11 +12,11 @@
 }
 .ghsh-remove {
     visibility: hidden;
-    position: absolute;
+    /* position: absolute;
     right: 0;
-    top: -8px;
+    top: 0; */
 }
-.ghsh-container:hover .ghsh-remove {
+li:hover > .ghsh-remove {
     visibility: visible;
 }
 .ghsh-filter--global {
