@@ -54,6 +54,7 @@ function createAddButton() {
     const button = document.createElement('button');
     button.className = 'btn-link Link--muted';
     button.innerHTML = ShortcutsIcons.add;
+    button.id='ghsh-add';
     button.addEventListener('click', async function () {
         const output = await menuDialog.open({
             title: document.title,
@@ -69,12 +70,26 @@ function createAddButton() {
     return button;
 }
 
-const navmenu = document.querySelector(nav);
-
-if (navmenu) {
-    navmenu.append(
-        createSeparator(),
-        createShortcutsNav(),
-        createAddButton()
-    );
+function addNav() {
+    const navmenu = document.querySelector(nav);
+    
+    if (navmenu) {
+        navmenu.append(
+            createSeparator(),
+            createShortcutsNav(),
+            createAddButton()
+        );
+    }
 }
+
+setInterval(function () {
+    const exists = !!document.getElementById('ghsh-add');
+
+    if (!exists) {
+        addNav();
+    }
+}, 3000);
+
+window.addEventListener('load', function () {
+    addNav();
+});
